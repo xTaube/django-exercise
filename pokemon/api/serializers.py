@@ -6,16 +6,18 @@ class PokemonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pokemon
         fields = [
+            'id',
             'user',
             'pokemon_name',
-            'content',
+            'type',
+            'description',
             'image',
         ]
 
     def validate(self, data):
-        content = data.get("content", None)
-        if content == "":
-            content = None
+        description = data.get("description", None)
+        if description == "":
+            description = None
 
         pokemon_name = data.get("pokemon_name", None)
         if pokemon_name == "":
@@ -23,5 +25,7 @@ class PokemonSerializer(serializers.ModelSerializer):
 
         image = data.get("image", None)
 
-        if content is None or pokemon_name is none or image is None:
+        if description is None or pokemon_name is None or image is None:
             raise serializers.ValidationError("Pokemon name, content and image are required")
+
+        return data

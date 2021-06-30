@@ -1,10 +1,12 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from .views import (
-    PokemonAPIView
+    PokemonAPIView,
+    PokemonDetailAPIView
 )
 
 
 urlpatterns = [
-    path('pokemons', PokemonAPIView.as_view())
+    path('pokemons', PokemonAPIView.as_view()),
+    re_path(r'pokemons/(?P<id>\d+)/$', PokemonDetailAPIView.as_view())
 ]
