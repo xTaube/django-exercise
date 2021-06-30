@@ -14,12 +14,13 @@ class PokemonManager(models.Manager):
 
 class Pokemon(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    pokemon_name = models.CharField(null=True , blank=True, max_length=20)
     content = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to=upload_status_image, null=True, blank=True)
     updates = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    object = PokemonManager()
+    objects = PokemonManager()
 
     def __str__(self):
         return str(self.content)[:50]
