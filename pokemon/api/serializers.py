@@ -23,9 +23,13 @@ class PokemonSerializer(serializers.ModelSerializer):
         if pokemon_name == "":
             pokemon_name = None
 
+        type = data.get("type", None)
+        if type == "":
+            type = None
+
         image = data.get("image", None)
 
-        if description is None or pokemon_name is None or image is None:
-            raise serializers.ValidationError("Pokemon name, content and image are required")
+        if description is None or pokemon_name is None or image is None or type is None:
+            raise serializers.ValidationError("Pokemon name, type, description and image are required")
 
         return data
